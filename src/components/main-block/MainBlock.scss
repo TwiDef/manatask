@@ -1,0 +1,7 @@
+.add-task-btn {
+    transition: .1s all ease-in-out;
+
+    &:hover {
+        transform: scale(1.05);
+    }
+}

@@ -1,9 +1,8 @@
 .list {
     span {
-        display: block;
+        display: inline-block;
         width: 20px;
         height: 20px;
-
     }
 
 
@@ -14,4 +13,36 @@
     }
 
 
+}
+
+.all-tasks-btn {
+    transition: .1s all ease-in-out;
+
+    &:hover {
+        transform: scale(1.05);
+    }
+}
+
+.add-folder-btn {
+    transition: .1s all ease-in-out;
+
+    &:hover {
+        transform: scale(1.05);
+    }
+}
+
+.red {
+    background-color: rgb(248 113 113);
+}
+
+.orange {
+    background-color: rgb(251 146 60);
+}
+
+.amber {
+    background-color: rgb(251 191 36);
+}
+
+.emerald {
+    background-color: rgb(52 211 153);
 }
