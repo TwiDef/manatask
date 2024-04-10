@@ -1,10 +1,8 @@
-.list {
-    span {
-        display: inline-block;
-        width: 20px;
-        height: 20px;
-    }
+.sidebar {
+    position: relative;
+}
 
+.list {
 
     .active {
         padding: 6px;
@@ -12,10 +10,21 @@
         border-radius: 6px;
     }
 
+    .listItem {
+        cursor: pointer;
+    }
 
 }
 
+.color {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+}
+
+.add-folder-btn,
 .all-tasks-btn {
+    opacity: 0.6;
     transition: .1s all ease-in-out;
 
     &:hover {
@@ -23,17 +32,77 @@
     }
 }
 
-.add-folder-btn {
+.popup {
+    z-index: 1;
+    background: #ffffff;
+    -webkit-box-shadow: 0px 0px 13px 4px rgba(0, 0, 0, 0.13);
+    -moz-box-shadow: 0px 0px 13px 4px rgba(0, 0, 0, 0.13);
+    box-shadow: 0px 0px 13px 4px rgba(0, 0, 0, 0.13);
+    position: absolute;
+    bottom: 60px;
+    left: 100px;
+
+    .color {
+        cursor: pointer;
+
+
+    }
+
+    .active {
+        border: 2px solid #393939;
+    }
+
+    input {
+        background: #eaeaea;
+        outline: none;
+
+
+        &::placeholder {
+            font-size: 17px;
+        }
+    }
+}
+
+.add-btn {
     transition: .1s all ease-in-out;
 
     &:hover {
         transform: scale(1.05);
     }
+
+    &:active {
+        transform: scale(.9);
+    }
 }
+
+.close-btn {
+    position: absolute;
+    background: #f1f1f1;
+    cursor: pointer;
+    transition: .1s all ease-in-out;
+    width: 30px;
+    height: 30px;
+    top: -13px;
+    right: -13px;
+
+    &:hover {
+        transform: scale(1.05);
+    }
+
+    &:active {
+        transform: scale(.9);
+    }
+}
+
 
 .red {
     background-color: rgb(248 113 113);
 }
+
+.rose {
+    background-color: rgb(251 113 133);
+}
+
 
 .orange {
     background-color: rgb(251 146 60);
@@ -43,6 +112,14 @@
     background-color: rgb(251 191 36);
 }
 
-.emerald {
+.emerland {
     background-color: rgb(52 211 153);
+}
+
+.teal {
+    background-color: rgb(45 212 191);
+}
+
+.violet {
+    background-color: rgb(167 139 250);
 }
