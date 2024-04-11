@@ -1,12 +1,18 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { setActiveList } from './../../redux/slices/taskSlice';
 import Popup from '../popup/Popup';
 
 import './Sidebar.scss';
 
 const Sidebar = () => {
+    const dispatch = useDispatch()
     const [popupActive, setPopupActive] = useState(false)
     const { lists, colors } = useSelector(state => state.task_data)
+
+    const onSetActiveList = (list) => {
+        dispatch(setActiveList(list))
+    }
 
     return (
         <aside className='sidebar w-1/3 bg-zinc-300 px-6 pt-10 pb-4 flex flex-col gap-12'>
@@ -19,10 +25,13 @@ const Sidebar = () => {
             <ul className='list flex flex-col gap-3 overflow-y-auto'>
                 {lists.map((list, i) => {
                     return (
-                        <li key={i} className={`listItem flex justify-between ${list.active ? 'active' : null}`}>
+                        <li
+                            onClick={() => onSetActiveList(list)}
+                            key={i}
+                            className={`listItem mr-2 flex justify-between ${list.active ? 'active' : null}`}>
                             <div className='flex items-center gap-2'>
                                 <span
-                                    className={`color rounded-full ${(colors[list.colorId].color)}`}>
+                                    className={`color rounded-full ${(colors[list.colorId - 1].color)}`}>
                                 </span>
                                 {list.name}
                             </div>

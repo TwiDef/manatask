@@ -1,11 +1,27 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { addToList } from '../../redux/slices/taskSlice';
 import './Popup.scss';
 
 const Popup = ({ setPopupActive }) => {
-    const { colors } = useSelector(state => state.task_data)
+    const dispatch = useDispatch()
+    const { colors, lists } = useSelector(state => state.task_data)
     const [folderName, setFolderName] = useState('')
     const [selectedColor, setSelectedColor] = useState(null)
+
+    const addFolder = () => {
+        if (!folderName || !selectedColor) return
+
+        dispatch(addToList({
+            id: [...lists].slice(-1)[0].id + 1,
+            active: false,
+            name: folderName,
+            colorId: selectedColor
+        }))
+        setSelectedColor(null)
+        setFolderName('')
+        setPopupActive(false)
+    }
 
     return (
         <div className='popup p-4 z-10 bg-white absolute bottom-16 left-24'>
@@ -25,6 +41,7 @@ const Popup = ({ setPopupActive }) => {
                 })}
             </div>
             <button
+                onClick={addFolder}
                 className='add-btn w-full mt-3 py-1 text-cyan-50 bg-lime-600'>
                 Добавить
             </button>

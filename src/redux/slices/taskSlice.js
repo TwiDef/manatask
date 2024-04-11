@@ -9,9 +9,19 @@ export const taskSlice = createSlice({
         colors: [...data.colors]
     },
     reducers: {
-
+        addToList: (state, action) => {
+            state.lists.push(action.payload)
+        },
+        setActiveList: (state, action) => {
+            state.lists.forEach(list => {
+                list.active = false
+            })
+            state.lists.filter(list => {
+                return list.id === action.payload.id ? list.active = true : null
+            })
+        }
     }
 })
 
-export const { } = taskSlice.actions
-export default taskSlice.reducer
+export const { addToList, setActiveList } = taskSlice.actions
+export default taskSlice.reducer 
