@@ -1,42 +1,12 @@
 import React, { useState } from 'react';
-import { items } from '../../items';
+import { useSelector } from 'react-redux';
+import Popup from '../popup/Popup';
 
 import './Sidebar.scss';
 
 const Sidebar = () => {
     const [popupActive, setPopupActive] = useState(false)
-    const [folderName, setFolderName] = useState('')
-
-    const popupColors = [
-        {
-            color: 'red',
-            active: false
-        },
-        {
-            color: 'orange',
-            active: true
-        },
-        {
-            color: 'amber',
-            active: false
-        },
-        {
-            color: 'emerland',
-            active: false
-        },
-        {
-            color: 'teal',
-            active: false
-        },
-        {
-            color: 'violet',
-            active: false
-        },
-        {
-            color: 'rose',
-            active: false
-        }
-    ]
+    const { lists, colors } = useSelector(state => state.task_data)
 
     return (
         <aside className='sidebar w-1/3 bg-zinc-300 px-6 pt-10 pb-4 flex flex-col gap-12'>
@@ -47,14 +17,16 @@ const Sidebar = () => {
             </button>
 
             <ul className='list flex flex-col gap-3 overflow-y-auto'>
-                {items.map((item, i) => {
+                {lists.map((list, i) => {
                     return (
-                        <li key={i} className={`listItem flex justify-between ${item.active ? 'active' : null}`}>
+                        <li key={i} className={`listItem flex justify-between ${list.active ? 'active' : null}`}>
                             <div className='flex items-center gap-2'>
-                                <span className={`color rounded-full ${item.color}`}></span>
-                                {item.name}
+                                <span
+                                    className={`color rounded-full ${(colors[list.colorId].color)}`}>
+                                </span>
+                                {list.name}
                             </div>
-                            {item.active && <button className='pr-1'>
+                            {list.active && <button className='pr-1'>
                                 <svg stroke="currentColor" fill="none" strokeWidth="0" viewBox="0 0 15 15" height="20px" width="20px" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" clipRule="evenodd" d="M11.7816 4.03157C12.0062 3.80702 12.0062 3.44295 11.7816 3.2184C11.5571 2.99385 11.193 2.99385 10.9685 3.2184L7.50005 6.68682L4.03164 3.2184C3.80708 2.99385 3.44301 2.99385 3.21846 3.2184C2.99391 3.44295 2.99391 3.80702 3.21846 4.03157L6.68688 7.49999L3.21846 10.9684C2.99391 11.193 2.99391 11.557 3.21846 11.7816C3.44301 12.0061 3.80708 12.0061 4.03164 11.7816L7.50005 8.31316L10.9685 11.7816C11.193 12.0061 11.5571 12.0061 11.7816 11.7816C12.0062 11.557 12.0062 11.193 11.7816 10.9684L8.31322 7.49999L11.7816 4.03157Z" fill="currentColor"></path></svg>
                             </button>}
                         </li>
@@ -63,35 +35,13 @@ const Sidebar = () => {
             </ul>
 
             <button
-                onClick={() => setPopupActive(true)}
+                onClick={() => setPopupActive(!popupActive)}
                 className='add-folder-btn flex items-center gap-2'>
                 <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 448 512" height="20px" width="20px" xmlns="http://www.w3.org/2000/svg"><path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"></path></svg>
                 <p>Добавить папку</p>
             </button>
             {
-                popupActive &&
-                <div className='popup p-4'>
-                    <input
-                        onChange={(e) => setFolderName(e.target.value)}
-                        value={folderName}
-                        className='input p-1 text-md' type="text" placeholder='Название папки' />
-                    <div className='colors flex justify-between mt-3'>
-                        {popupColors.map((color, i) => {
-                            return (
-                                <span key={i} className={`${color.active ? 'active' : ''} color ${color.color} rounded-full`}></span>
-                            )
-                        })}
-                    </div>
-                    <button
-                        className='add-btn w-full mt-3 py-1 text-cyan-50 bg-lime-600'>
-                        Добавить
-                    </button>
-                    <button
-                        onClick={() => setPopupActive(false)}
-                        className='close-btn rounded-full flex items-center justify-center'>
-                        <svg stroke="currentColor" fill="none" strokeWidth="0" viewBox="0 0 15 15" height="20px" width="20px" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" clipRule="evenodd" d="M11.7816 4.03157C12.0062 3.80702 12.0062 3.44295 11.7816 3.2184C11.5571 2.99385 11.193 2.99385 10.9685 3.2184L7.50005 6.68682L4.03164 3.2184C3.80708 2.99385 3.44301 2.99385 3.21846 3.2184C2.99391 3.44295 2.99391 3.80702 3.21846 4.03157L6.68688 7.49999L3.21846 10.9684C2.99391 11.193 2.99391 11.557 3.21846 11.7816C3.44301 12.0061 3.80708 12.0061 4.03164 11.7816L7.50005 8.31316L10.9685 11.7816C11.193 12.0061 11.5571 12.0061 11.7816 11.7816C12.0062 11.557 12.0062 11.193 11.7816 10.9684L8.31322 7.49999L11.7816 4.03157Z" fill="currentColor"></path></svg>
-                    </button>
-                </div>
+                popupActive && <Popup setPopupActive={setPopupActive} />
             }
 
         </aside >

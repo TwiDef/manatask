@@ -1,7 +1,10 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import './MainBlock.scss';
 
 const MainBlock = () => {
+    const { tasks } = useSelector(state => state.task_data)
+
     return (
         <div className='mainblock w-full px-6 pt-10 pb-4 flex flex-col'>
             <h1 className=' text-4xl text-stone-600 font-bold text-center'>Книги</h1>

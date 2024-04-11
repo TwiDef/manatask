@@ -1,0 +1,22 @@
+{
+    "lists": [
+        {"id": 1, "active": false, "name": "Покупки", "colorId": 6},
+        {"id": 2, "active": false, "name": "Фильмы", "colorId": 4},
+        {"id": 3, "active": true, "name": "Книги", "colorId": 2},
+        {"id": 4, "active": false, "name": "Личное", "colorId": 5}
+    ],
+    "tasks": [
+        {"id": 1, "listId": 1, "text": "Lorem ipsum dolor sit amet"},
+        {"id": 2, "listId": 1, "text": "iste magnam minima reprehenderit ea!"},
+        {"id": 3, "listId": 1, "text": "commodi veniam officiis accusamus voluptatibus."}
+    ],
+    "colors": [
+        {"id": 1, "color": "red"},
+        {"id": 2, "color": "orange"},
+        {"id": 3, "color": "amber"},
+        {"id": 4, "color": "emerland"},
+        {"id": 5, "color": "teal"},
+        {"id": 6, "color": "violet"},
+        {"id": 7, "color": "rose"}
+    ]
+}
