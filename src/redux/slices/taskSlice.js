@@ -19,9 +19,16 @@ export const taskSlice = createSlice({
             state.lists.filter(list => {
                 return list.id === action.payload.id ? list.active = true : null
             })
+        },
+        toggleCompleted: (state, action) => {
+            state.tasks.forEach(task => {
+                if (task.id === action.payload.id) {
+                    task.completed = !task.completed
+                }
+            })
         }
     }
 })
 
-export const { addToList, setActiveList } = taskSlice.actions
+export const { addToList, setActiveList, toggleCompleted } = taskSlice.actions
 export default taskSlice.reducer 

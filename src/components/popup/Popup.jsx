@@ -15,7 +15,7 @@ const Popup = ({ setPopupActive }) => {
         dispatch(addToList({
             id: [...lists].slice(-1)[0].id + 1,
             active: false,
-            name: folderName,
+            name: folderName.length > 12 ? folderName.slice(0, 11) + '...' : folderName,
             colorId: selectedColor
         }))
         setSelectedColor(null)

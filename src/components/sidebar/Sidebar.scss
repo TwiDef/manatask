@@ -31,7 +31,9 @@
     }
 }
 
-.add-btn {
+
+.add-btn,
+.remove-folder-btn {
     transition: .1s all ease-in-out;
 
     &:hover {
@@ -40,6 +42,16 @@
 
     &:active {
         transform: scale(.9);
+    }
+}
+
+.remove-folder-btn {
+    &:hover {
+        transform: scale(1.3);
+    }
+
+    &:active {
+        transform: scale(.95);
     }
 }
 

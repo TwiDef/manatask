@@ -1,28 +1,60 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { toggleCompleted } from '../../redux/slices/taskSlice';
 import './MainBlock.scss';
 
 const MainBlock = () => {
+    const dispatch = useDispatch()
     const { tasks } = useSelector(state => state.task_data)
+
+    const toggleCheck = (task) => {
+        dispatch(toggleCompleted(task))
+    }
 
     return (
         <div className='mainblock w-full px-6 pt-10 pb-4 flex flex-col'>
             <h1 className=' text-4xl text-stone-600 font-bold text-center'>Книги</h1>
             <hr className='w-full h-1 bg-gray-300 mt-8' />
 
-            <ul className='pt-8 pl-8 h-80 overflow-y-auto'>
-                <li className='py-1 text-xl flex items-center gap-1'>
-                    <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 24 24" height="22px" width="22px" xmlns="http://www.w3.org/2000/svg"><path fill="none" d="M0 0h24v24H0V0z"></path><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"></path></svg>
-                    <h3>Lorem ipsum dolor sit amet</h3>
-                </li>
-                <li className='py-1 text-xl flex items-center gap-1'>
-                    <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 24 24" height="20px" width="20px" xmlns="http://www.w3.org/2000/svg"><path d="M17.28 9.28a.75.75 0 0 0-1.06-1.06l-5.97 5.97-2.47-2.47a.75.75 0 0 0-1.06 1.06l3 3a.75.75 0 0 0 1.06 0l6.5-6.5Z"></path><path d="M12 1c6.075 0 11 4.925 11 11s-4.925 11-11 11S1 18.075 1 12 5.925 1 12 1ZM2.5 12a9.5 9.5 0 0 0 9.5 9.5 9.5 9.5 0 0 0 9.5-9.5A9.5 9.5 0 0 0 12 2.5 9.5 9.5 0 0 0 2.5 12Z"></path></svg>
-                    <h3>iste magnam minima reprehenderit ea!</h3>
-                </li>
-                <li className='py-1 text-xl flex items-center gap-1'>
-                    <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 24 24" height="20px" width="20px" xmlns="http://www.w3.org/2000/svg"><path d="M1 12C1 5.925 5.925 1 12 1s11 4.925 11 11-4.925 11-11 11S1 18.075 1 12Zm16.28-2.72a.751.751 0 0 0-.018-1.042.751.751 0 0 0-1.042-.018l-5.97 5.97-2.47-2.47a.751.751 0 0 0-1.042.018.751.751 0 0 0-.018 1.042l3 3a.75.75 0 0 0 1.06 0Z"></path></svg>
-                    <h3>commodi veniam officiis accusamus voluptatibus.</h3>
-                </li>
+            <ul className='pt-8 pl-8 pr-3 h-80 overflow-y-auto'>
+                {tasks.map(task => {
+                    return (
+                        <li
+                            key={task.id}
+                            className='py-1 text-xl flex items-center gap-2'>
+                            <div className="checkbox-wrapper-12">
+                                <div className="cbx">
+                                    <input
+                                        onChange={() => toggleCheck(task)}
+                                        id="check"
+                                        type="checkbox"
+                                        checked={task.completed} />
+                                    <label htmlFor="check"></label>
+                                    <svg width="15" height="14" viewBox="0 0 15 14" fill="none">
+                                        <path d="M2 8.36364L6.23077 12L13 2"></path>
+                                    </svg>
+                                </div>
+                                <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+                                    <defs>
+                                        <filter id="goo-12">
+                                            <fegaussianblur in="SourceGraphic" stdDeviation="4" result="blur"></fegaussianblur>
+                                            <fecolormatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 22 -7" result="goo-12"></fecolormatrix>
+                                            <feblend in="SourceGraphic" in2="goo-12"></feblend>
+                                        </filter>
+                                    </defs>
+                                </svg>
+                            </div>
+
+                            <h3>{task.text}</h3>
+                            <button className='remove-task-btn px-2 ml-auto'>
+                                <svg stroke="currentColor" fill="none" strokeWidth="0" viewBox="0 0 15 15" height="20px" width="20px" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" clipRule="evenodd" d="M11.7816 4.03157C12.0062 3.80702 12.0062 3.44295 11.7816 3.2184C11.5571 2.99385 11.193 2.99385 10.9685 3.2184L7.50005 6.68682L4.03164 3.2184C3.80708 2.99385 3.44301 2.99385 3.21846 3.2184C2.99391 3.44295 2.99391 3.80702 3.21846 4.03157L6.68688 7.49999L3.21846 10.9684C2.99391 11.193 2.99391 11.557 3.21846 11.7816C3.44301 12.0061 3.80708 12.0061 4.03164 11.7816L7.50005 8.31316L10.9685 11.7816C11.193 12.0061 11.5571 12.0061 11.7816 11.7816C12.0062 11.557 12.0062 11.193 11.7816 10.9684L8.31322 7.49999L11.7816 4.03157Z" fill="currentColor"></path></svg>
+                            </button>
+                        </li>
+                    )
+                })}
+
+
+
                 <button className='add-task-btn py-1 flex items-center gap-1'>
                     <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 448 512" height="20px" width="20px" xmlns="http://www.w3.org/2000/svg"><path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"></path></svg>
                     <p className='text-xl'>добавить задачу</p>
