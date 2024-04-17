@@ -1,13 +1,16 @@
-import Sidebar from './components/sidebar/Sidebar';
-import MainBlock from './components/main-block/MainBlock';
+import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { fetchLists, fetchTasks, fetchColors } from './redux/slices/taskSlice';
+
+import Sidebar from './components/sidebar/Sidebar';
+import MainBlock from './components/main-block/MainBlock';
+
 import './App.scss';
-import { useEffect } from 'react';
 
 
 function App() {
     const dispatch = useDispatch()
+
     useEffect(() => {
         dispatch(fetchLists())
         dispatch(fetchTasks())

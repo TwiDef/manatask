@@ -32,7 +32,7 @@ const Sidebar = () => {
                                 <span
                                     className={`color rounded-full ${(colors[list.colorId - 1]?.color)}`}>
                                 </span>
-                                {list.name}
+                                {list.name.length > 12 ? list.name.slice(0, 11) + '...' : list.name}
                             </div>
                             {list.active &&
                                 <button className='remove-folder-btn pr-1'>

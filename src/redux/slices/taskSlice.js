@@ -1,26 +1,36 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-// import data from './../../db.json';
 import axios from 'axios';
 
-export const fetchLists = createAsyncThunk('lists/fetchLists', async () => {
-    const response = await axios.get('http://localhost:3001/lists')
-    return response.data
+export const fetchLists = createAsyncThunk('lists/fetchLists', async (_, thunkAPI) => {
+    try {
+        const response = await axios.get('http://localhost:3001/lists')
+        return response.data
+    } catch (error) {
+        return thunkAPI.rejectWithValue(error.response.data)
+    }
 })
-export const fetchTasks = createAsyncThunk('tasks/fetchTasks', async () => {
-    const response = await axios.get('http://localhost:3001/tasks')
-    return response.data
+
+export const fetchTasks = createAsyncThunk('tasks/fetchTasks', async (_, thunkAPI) => {
+    try {
+        const response = await axios.get('http://localhost:3001/tasks')
+        return response.data
+    } catch (error) {
+        return thunkAPI.rejectWithValue(error.response.data)
+    }
 })
-export const fetchColors = createAsyncThunk('colors/fetchColors', async () => {
-    const response = await axios.get('http://localhost:3001/colors')
-    return response.data
+
+export const fetchColors = createAsyncThunk('colors/fetchColors', async (_, thunkAPI) => {
+    try {
+        const response = await axios.get('http://localhost:3001/colors')
+        return response.data
+    } catch (error) {
+        return thunkAPI.rejectWithValue(error.response.data)
+    }
 })
 
 export const taskSlice = createSlice({
     name: 'task',
     initialState: {
-        /*         lists: [...data.lists],
-                tasks: [...data.tasks],
-                colors: [...data.colors], */
         lists: [],
         tasks: [],
         colors: [],
@@ -60,6 +70,7 @@ export const taskSlice = createSlice({
             .addCase(fetchLists.rejected, (state) => {
                 state.status = 'failed'
             })
+
             /* fetchTasks */
             .addCase(fetchTasks.pending, (state) => {
                 state.status = 'loading'
@@ -71,6 +82,7 @@ export const taskSlice = createSlice({
             .addCase(fetchTasks.rejected, (state) => {
                 state.status = 'failed'
             })
+
             /* fetchColors */
             .addCase(fetchColors.pending, (state) => {
                 state.status = 'loading'

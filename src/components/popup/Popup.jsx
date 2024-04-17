@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { addToList } from '../../redux/slices/taskSlice';
+import { addToList, fetchLists } from '../../redux/slices/taskSlice';
+
 import './Popup.scss';
+import axios from 'axios';
 
 const Popup = ({ setPopupActive }) => {
     const dispatch = useDispatch()
@@ -9,18 +11,26 @@ const Popup = ({ setPopupActive }) => {
     const [folderName, setFolderName] = useState('')
     const [selectedColor, setSelectedColor] = useState(null)
 
-    const addFolder = () => {
+    const addFolder = async () => {
         if (!folderName || !selectedColor) return
 
-        dispatch(addToList({
-            id: +([...lists].slice(-1)[0].id + 1),
-            active: false,
-            name: folderName.length > 12 ? folderName.slice(0, 11) + '...' : folderName,
-            colorId: selectedColor
-        }))
-        setSelectedColor(null)
-        setFolderName('')
-        setPopupActive(false)
+        try {
+            await axios.post('http://localhost:3001/lists', {
+                active: false,
+                name: folderName.charAt(0).toUpperCase() + folderName.slice(1),
+                colorId: selectedColor
+            })
+            dispatch(fetchLists())
+
+        } catch (error) {
+            console.log(error)
+            alert('Произошла ошибка, попробуйте позднее..')
+
+        } finally {
+            setSelectedColor(null)
+            setFolderName('')
+            setPopupActive(false)
+        }
     }
 
     return (

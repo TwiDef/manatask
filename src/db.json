@@ -1,22 +1,102 @@
 {
-    "lists": [
-        {"id": 1, "active": false, "name": "Покупки", "colorId": 6},
-        {"id": 2, "active": false, "name": "Фильмы", "colorId": 4},
-        {"id": 3, "active": true, "name": "Книги", "colorId": 2},
-        {"id": 4, "active": false, "name": "Личное", "colorId": 5}
-    ],
-    "tasks": [
-        {"id": 1,"completed": true , "listId": 1, "text": "Lorem ipsum dolor sit amet"},
-        {"id": 2,"completed": false , "listId": 1, "text": "iste magnam minima reprehenderit ea!"},
-        {"id": 3,"completed": false , "listId": 1, "text": "commodi veniam officiis accusamus voluptatibus."}
-    ],
-    "colors": [
-        {"id": 1, "color": "red"},
-        {"id": 2, "color": "orange"},
-        {"id": 3, "color": "amber"},
-        {"id": 4, "color": "emerland"},
-        {"id": 5, "color": "teal"},
-        {"id": 6, "color": "violet"},
-        {"id": 7, "color": "rose"}
-    ]
+  "lists": [
+    {
+      "id": "1",
+      "active": false,
+      "name": "Покупки",
+      "colorId": 6
+    },
+    {
+      "id": "2",
+      "active": false,
+      "name": "Фильмы",
+      "colorId": 4
+    },
+    {
+      "id": "3",
+      "active": true,
+      "name": "Книги",
+      "colorId": 2
+    },
+    {
+      "id": "4",
+      "active": false,
+      "name": "Личное",
+      "colorId": 5
+    },
+    {
+      "id": "38b0",
+      "active": false,
+      "name": "d",
+      "colorId": "3"
+    },
+    {
+      "id": "0e8c",
+      "active": false,
+      "name": "Asdasd",
+      "colorId": "5"
+    },
+    {
+      "id": "a088",
+      "active": false,
+      "name": "Alksd;la",
+      "colorId": "6"
+    },
+    {
+      "id": "679c",
+      "active": false,
+      "name": "Asdas",
+      "colorId": "7"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "1",
+      "completed": true,
+      "listId": 1,
+      "text": "Lorem ipsum dolor sit amet"
+    },
+    {
+      "id": "2",
+      "completed": false,
+      "listId": 1,
+      "text": "iste magnam minima reprehenderit ea!"
+    },
+    {
+      "id": "3",
+      "completed": false,
+      "listId": 1,
+      "text": "commodi veniam officiis accusamus voluptatibus."
+    }
+  ],
+  "colors": [
+    {
+      "id": "1",
+      "color": "red"
+    },
+    {
+      "id": "2",
+      "color": "orange"
+    },
+    {
+      "id": "3",
+      "color": "amber"
+    },
+    {
+      "id": "4",
+      "color": "emerland"
+    },
+    {
+      "id": "5",
+      "color": "teal"
+    },
+    {
+      "id": "6",
+      "color": "violet"
+    },
+    {
+      "id": "7",
+      "color": "rose"
+    }
+  ]
 }
