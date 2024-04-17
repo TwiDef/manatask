@@ -13,7 +13,6 @@ const Sidebar = () => {
     const onSetActiveList = (list) => {
         dispatch(setActiveList(list))
     }
-
     return (
         <aside className='sidebar w-1/3 bg-zinc-300 px-6 pt-10 pb-4 flex flex-col gap-12'>
 
@@ -31,7 +30,7 @@ const Sidebar = () => {
                             className={`listItem mr-2 flex justify-between ${list.active ? 'active' : null}`}>
                             <div className='flex items-center gap-2'>
                                 <span
-                                    className={`color rounded-full ${(colors[list.colorId - 1].color)}`}>
+                                    className={`color rounded-full ${(colors[list.colorId - 1]?.color)}`}>
                                 </span>
                                 {list.name}
                             </div>
