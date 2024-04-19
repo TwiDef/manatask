@@ -1,28 +1,20 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-export const fetchLists = createAsyncThunk('lists/fetchLists', async (_, thunkAPI) => {
-    try {
-        const response = await axios.get('http://localhost:3001/lists')
-        return response.data
-    } catch (error) {
-        return thunkAPI.rejectWithValue(error.response.data)
-    }
-})
 
-export const fetchTasks = createAsyncThunk('tasks/fetchTasks', async (_, thunkAPI) => {
+export const fetchTaskData = createAsyncThunk('taskData/fetchTaskData', async (_, thunkAPI) => {
+    const endpoints = [
+        'http://localhost:3001/lists',
+        'http://localhost:3001/tasks',
+        'http://localhost:3001/colors'
+    ]
     try {
-        const response = await axios.get('http://localhost:3001/tasks')
-        return response.data
-    } catch (error) {
-        return thunkAPI.rejectWithValue(error.response.data)
-    }
-})
-
-export const fetchColors = createAsyncThunk('colors/fetchColors', async (_, thunkAPI) => {
-    try {
-        const response = await axios.get('http://localhost:3001/colors')
-        return response.data
+        const [lists, tasks, colors] = await axios.all(endpoints.map(endpoint => axios.get(endpoint)))
+        return {
+            lists: lists.data,
+            tasks: tasks.data,
+            colors: colors.data
+        }
     } catch (error) {
         return thunkAPI.rejectWithValue(error.response.data)
     }
@@ -34,8 +26,7 @@ export const taskSlice = createSlice({
         lists: [],
         tasks: [],
         colors: [],
-        status: null,
-
+        status: null
     },
     reducers: {
         addToList: (state, action) => {
@@ -59,39 +50,15 @@ export const taskSlice = createSlice({
     },
     extraReducers(builder) {
         builder
-            /* fetchLists */
-            .addCase(fetchLists.pending, (state) => {
+            .addCase(fetchTaskData.pending, (state) => {
                 state.status = 'loading'
             })
-            .addCase(fetchLists.fulfilled, (state, action) => {
-                state.status = 'succeeded'
-                state.lists = action.payload
+            .addCase(fetchTaskData.fulfilled, (state, action) => {
+                state.lists = action.payload.lists
+                state.tasks = action.payload.tasks
+                state.colors = action.payload.colors
             })
-            .addCase(fetchLists.rejected, (state) => {
-                state.status = 'failed'
-            })
-
-            /* fetchTasks */
-            .addCase(fetchTasks.pending, (state) => {
-                state.status = 'loading'
-            })
-            .addCase(fetchTasks.fulfilled, (state, action) => {
-                state.status = 'succeeded'
-                state.tasks = action.payload
-            })
-            .addCase(fetchTasks.rejected, (state) => {
-                state.status = 'failed'
-            })
-
-            /* fetchColors */
-            .addCase(fetchColors.pending, (state) => {
-                state.status = 'loading'
-            })
-            .addCase(fetchColors.fulfilled, (state, action) => {
-                state.status = 'succeeded'
-                state.colors = action.payload
-            })
-            .addCase(fetchColors.rejected, (state) => {
+            .addCase(fetchTaskData.rejected, (state) => {
                 state.status = 'failed'
             })
     }

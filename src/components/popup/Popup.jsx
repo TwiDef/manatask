@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { addToList, fetchLists } from '../../redux/slices/taskSlice';
+import { fetchTaskData } from '../../redux/slices/taskSlice';
 
 import './Popup.scss';
 import axios from 'axios';
 
 const Popup = ({ setPopupActive }) => {
     const dispatch = useDispatch()
-    const { colors, lists } = useSelector(state => state.task_data)
+    const { colors } = useSelector(state => state.task_data)
     const [folderName, setFolderName] = useState('')
     const [selectedColor, setSelectedColor] = useState(null)
 
@@ -20,7 +20,7 @@ const Popup = ({ setPopupActive }) => {
                 name: folderName.charAt(0).toUpperCase() + folderName.slice(1),
                 colorId: selectedColor
             })
-            dispatch(fetchLists())
+            dispatch(fetchTaskData())
 
         } catch (error) {
             console.log(error)
