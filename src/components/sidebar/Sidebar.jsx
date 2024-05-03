@@ -1,23 +1,32 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
-import { setActiveList } from './../../redux/slices/taskSlice';
+import { fetchTaskData, setActiveList } from './../../redux/slices/taskSlice';
 import Popup from '../popup/Popup';
 
 import './Sidebar.scss';
 
+
 const Sidebar = () => {
+
     const dispatch = useDispatch()
     const [popupActive, setPopupActive] = useState(false)
-    const { lists, colors } = useSelector(state => state.task_data)
+    const { lists, colors, activeList } = useSelector(state => state.task_data)
 
     const onSetActiveList = (list) => {
         dispatch(setActiveList(list))
     }
 
-    const onRemoveList = (e, list) => {
+    const onRemoveList = async (e, list) => {
         e.stopPropagation()
-        console.log(list)
+
+        if (window.confirm(`Вы желаете удалить список - ${list.name}`)) {
+            await axios.delete(`http://localhost:3001/lists/${list.id}`)
+            dispatch(fetchTaskData())
+            dispatch(setActiveList(lists[0]))
+        }
     }
+
     return (
         <aside className='sidebar w-1/3 bg-zinc-300 px-6 pt-10 pb-4 flex flex-col gap-12'>
 
@@ -32,14 +41,18 @@ const Sidebar = () => {
                         <li
                             onClick={() => onSetActiveList(list)}
                             key={i}
-                            className={`listItem mr-2 flex justify-between ${list.active ? 'active' : null}`}>
+                            className={`listItem mr-2 flex justify-between ${list.id === activeList.id ? 'active' : null}`}>
+
                             <div className='flex items-center gap-2'>
                                 <span
-                                    className={`color rounded-full ${(colors[list.colorId - 1]?.color)}`}>
+                                    className={`color-bagde color rounded-full ${(colors[list.colorId - 1]?.color)}`}>
+                                    <p className='task-count rounded-full'>
+                                        {list.tasks && list.tasks.length}
+                                    </p>
                                 </span>
                                 {list.name.length > 12 ? list.name.slice(0, 11) + '...' : list.name}
                             </div>
-                            {list.active &&
+                            {list.id === activeList.id &&
                                 <button
                                     className='remove-folder-btn pr-1'
                                     onClick={(e) => onRemoveList(e, list)}>

@@ -1,23 +1,42 @@
 import React from 'react';
+import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
-import { toggleCompleted } from '../../redux/slices/taskSlice';
+import { toggleCompleted, fetchTaskData } from '../../redux/slices/taskSlice';
 import './MainBlock.scss';
+
 
 const MainBlock = () => {
     const dispatch = useDispatch()
-    const { tasks } = useSelector(state => state.task_data)
+    const { activeList } = useSelector(state => state.task_data)
 
-    const toggleCheck = (task) => {
+    const toggleCheck = async (task) => {
         dispatch(toggleCompleted(task))
+    }
+
+    const onRenameList = async () => {
+        const newListName = window.prompt('Введите имя списка', activeList.name)
+        if (newListName) {
+            await axios.patch(`http://localhost:3001/lists/${activeList.id}`, { name: newListName })
+        }
+        dispatch(fetchTaskData())
     }
 
     return (
         <div className='mainblock w-full px-6 pt-10 pb-4 flex flex-col'>
-            <h1 className=' text-4xl text-stone-600 font-bold text-center'>Книги</h1>
+            <div className='flex items-center gap-2 my-0 m-auto'>
+                <h1 className=' text-4xl text-stone-600 font-bold text-center'>
+                    {activeList && activeList.name}
+                </h1>
+                <button onClick={onRenameList}>
+                    <img src="https://cdn-icons-png.flaticon.com/512/4341/4341104.png" alt=""
+                        width={34} height={34} />
+                </button>
+            </div>
+
             <hr className='w-full h-1 bg-gray-300 mt-8' />
 
             <ul className='pt-8 pl-8 pr-3 h-80 overflow-y-auto'>
-                {tasks.map(task => {
+                {activeList && activeList.tasks.map(task => {
                     return (
                         <li
                             key={task.id}

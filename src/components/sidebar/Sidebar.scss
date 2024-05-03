@@ -31,6 +31,24 @@
     }
 }
 
+.color-bagde {
+    position: relative;
+}
+
+.task-count {
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #f1f1f1;
+    background-color: #4b4b4b;
+    font-size: 12px;
+    top: -4px;
+    left: 10px;
+}
+
 
 .add-btn,
 .remove-folder-btn {

@@ -16,7 +16,6 @@ const Popup = ({ setPopupActive }) => {
 
         try {
             await axios.post('http://localhost:3001/lists', {
-                active: false,
                 name: folderName.charAt(0).toUpperCase() + folderName.slice(1),
                 colorId: selectedColor
             })

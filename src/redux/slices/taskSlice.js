@@ -1,10 +1,9 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-
 export const fetchTaskData = createAsyncThunk('taskData/fetchTaskData', async (_, thunkAPI) => {
     const endpoints = [
-        'http://localhost:3001/lists',
+        'http://localhost:3001/lists?_embed=tasks',
         'http://localhost:3001/tasks',
         'http://localhost:3001/colors'
     ]
@@ -26,6 +25,7 @@ export const taskSlice = createSlice({
         lists: [],
         tasks: [],
         colors: [],
+        activeList: null,
         status: null
     },
     reducers: {
@@ -33,19 +33,16 @@ export const taskSlice = createSlice({
             state.lists.push(action.payload)
         },
         setActiveList: (state, action) => {
-            state.lists.forEach(list => {
-                list.active = false
-            })
             state.lists.filter(list => {
-                return list.id === action.payload.id ? list.active = true : null
+                return list.id === action.payload.id ? state.activeList = list : null
             })
         },
         toggleCompleted: (state, action) => {
-            state.tasks.forEach(task => {
-                if (task.id === action.payload.id) {
-                    task.completed = !task.completed
-                }
-            })
+            /*             state.tasks.forEach(task => {
+                            if (task.id === action.payload.id) {
+                                task.completed = !task.completed
+                            }
+                        }) */
         }
     },
     extraReducers(builder) {
@@ -57,6 +54,8 @@ export const taskSlice = createSlice({
                 state.lists = action.payload.lists
                 state.tasks = action.payload.tasks
                 state.colors = action.payload.colors
+                state.activeList = action.payload.lists[0]
+                state.status = 'fulfilled'
             })
             .addCase(fetchTaskData.rejected, (state) => {
                 state.status = 'failed'
