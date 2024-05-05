@@ -1,13 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import { toggleCompleted, fetchTaskData } from '../../redux/slices/taskSlice';
 import './MainBlock.scss';
+import TaskForm from '../task-form/TaskForm';
 
 
 const MainBlock = () => {
     const dispatch = useDispatch()
     const { activeList } = useSelector(state => state.task_data)
+
+    const [visibleTaskForm, setVisibleTaskForm] = useState(false)
+    const [taskValue, setTaskValue] = useState('')
 
     const toggleCheck = async (task) => {
         dispatch(toggleCompleted(task))
@@ -16,7 +20,11 @@ const MainBlock = () => {
     const onRenameList = async () => {
         const newListName = window.prompt('Введите имя списка', activeList.name)
         if (newListName) {
-            await axios.patch(`http://localhost:3001/lists/${activeList.id}`, { name: newListName })
+            await axios.patch(`http://localhost:3001/lists/${activeList.id}`, {
+                name: newListName
+            }).catch(() => {
+                alert('Не удалось  обновить название списка')
+            })
         }
         dispatch(fetchTaskData())
     }
@@ -72,12 +80,20 @@ const MainBlock = () => {
                     )
                 })}
 
+                {visibleTaskForm ?
+                    <TaskForm
+                        taskValue={taskValue}
+                        setTaskValue={setTaskValue}
+                        setVisibleTaskForm={setVisibleTaskForm} />
+                    :
+                    <button
+                        onClick={() => setVisibleTaskForm(true)}
+                        className='add-task-btn py-1 flex items-center gap-2'>
+                        <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 448 512" height="20px" width="20px" xmlns="http://www.w3.org/2000/svg"><path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"></path></svg>
+                        <p className='text-xl'>добавить задачу</p>
+                    </button>
 
-
-                <button className='add-task-btn py-1 flex items-center gap-1'>
-                    <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 448 512" height="20px" width="20px" xmlns="http://www.w3.org/2000/svg"><path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"></path></svg>
-                    <p className='text-xl'>добавить задачу</p>
-                </button>
+                }
             </ul>
 
         </div>

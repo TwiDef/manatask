@@ -1,0 +1,24 @@
+.task-form {
+    margin-top: 16px;
+    width: 300px;
+
+    input {
+        &::placeholder {
+            font-size: 18px;
+        }
+    }
+
+    &__btn {
+        padding: 5px 10px;
+        width: 100%;
+        transition: .1s all ease-in-out;
+
+        &:hover {
+            transform: scale(1.05);
+        }
+
+        &:active {
+            transform: scale(.9);
+        }
+    }
+}

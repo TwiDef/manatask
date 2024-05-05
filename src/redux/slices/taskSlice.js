@@ -55,7 +55,7 @@ export const taskSlice = createSlice({
                 state.tasks = action.payload.tasks
                 state.colors = action.payload.colors
                 state.activeList = action.payload.lists[0]
-                state.status = 'fulfilled'
+                state.status = 'succeeded'
             })
             .addCase(fetchTaskData.rejected, (state) => {
                 state.status = 'failed'
