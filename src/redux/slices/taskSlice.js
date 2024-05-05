@@ -26,6 +26,8 @@ export const taskSlice = createSlice({
         tasks: [],
         colors: [],
         activeList: null,
+        visibleTaskForm: false,
+        taskValue: "",
         status: null
     },
     reducers: {
@@ -43,6 +45,12 @@ export const taskSlice = createSlice({
                                 task.completed = !task.completed
                             }
                         }) */
+        },
+        setVisibleTaskForm: (state, action) => {
+            state.visibleTaskForm = action.payload
+        },
+        setTaskValue: (state, action) => {
+            state.taskValue = action.payload
         }
     },
     extraReducers(builder) {
@@ -63,5 +71,11 @@ export const taskSlice = createSlice({
     }
 })
 
-export const { addToList, setActiveList, toggleCompleted } = taskSlice.actions
+export const {
+    addToList,
+    setActiveList,
+    toggleCompleted,
+    setVisibleTaskForm,
+    setTaskValue } = taskSlice.actions
+
 export default taskSlice.reducer 

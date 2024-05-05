@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchTaskData, setActiveList } from './../../redux/slices/taskSlice';
+import { fetchTaskData, setActiveList, setTaskValue, setVisibleTaskForm } from './../../redux/slices/taskSlice';
 import Popup from '../popup/Popup';
 
 import './Sidebar.scss';
@@ -15,6 +15,8 @@ const Sidebar = () => {
 
     const onSetActiveList = (list) => {
         dispatch(setActiveList(list))
+        dispatch(setVisibleTaskForm(false))
+        dispatch(setTaskValue(""))
     }
 
     const onRemoveList = async (e, list) => {
