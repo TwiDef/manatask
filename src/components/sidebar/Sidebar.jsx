@@ -43,7 +43,7 @@ const Sidebar = () => {
                         <li
                             onClick={() => onSetActiveList(list)}
                             key={i}
-                            className={`listItem mr-2 flex justify-between ${list.id === activeList.id ? 'active' : null}`}>
+                            className={`listItem mr-2 flex justify-between ${list.id === activeList?.id ? 'active' : null}`}>
 
                             <div className='flex items-center gap-2'>
                                 <span
@@ -54,7 +54,7 @@ const Sidebar = () => {
                                 </span>
                                 {list.name.length > 12 ? list.name.slice(0, 11) + '...' : list.name}
                             </div>
-                            {list.id === activeList.id &&
+                            {list.id === activeList?.id &&
                                 <button
                                     className='remove-folder-btn pr-1'
                                     onClick={(e) => onRemoveList(e, list)}>
