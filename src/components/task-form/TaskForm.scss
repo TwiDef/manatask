@@ -13,6 +13,10 @@
         width: 100%;
         transition: .1s all ease-in-out;
 
+        &:disabled {
+            background-color: rgb(82 82 82);
+        }
+
         &:hover {
             transform: scale(1.05);
         }

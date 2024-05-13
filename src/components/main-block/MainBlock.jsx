@@ -7,7 +7,6 @@ import TaskForm from '../task-form/TaskForm';
 import './MainBlock.scss';
 
 const MainBlock = () => {
-    const [, forceUpdate] = useReducer(o => !o);
     const dispatch = useDispatch()
     const { activeList, visibleTaskForm, tasks } = useSelector(state => state.task_data)
 
@@ -27,10 +26,6 @@ const MainBlock = () => {
         dispatch(fetchTaskData())
     }
 
-    useEffect(() => {
-        forceUpdate()
-    }, [tasks])
-
     return (
         <>
             {activeList ?
@@ -48,10 +43,10 @@ const MainBlock = () => {
                     <hr className='w-full h-1 bg-gray-300 mt-8' />
 
                     <ul className='pt-8 pl-8 pr-3 h-80 overflow-y-auto'>
-                        {activeList && activeList.tasks.map(task => {
+                        {activeList && activeList.tasks.map((task, i) => {
                             return (
                                 <li
-                                    key={task.id}
+                                    key={i}
                                     className='py-1 text-xl flex items-center gap-2'>
                                     <div className="checkbox-wrapper-12">
                                         <div className="cbx">

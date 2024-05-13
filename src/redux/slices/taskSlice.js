@@ -31,9 +31,10 @@ export const taskSlice = createSlice({
         status: null
     },
     reducers: {
-        updateActiveListTasks: (state, action) => {
-            state.activeList.tasks.push(action.payload)
-        },
+        updateActiveList: (state, action) => {
+            state.activeList = state.lists[action.payload]
+        }
+        ,
         addToList: (state, action) => {
             state.lists.push(action.payload)
         },
@@ -42,13 +43,13 @@ export const taskSlice = createSlice({
                 return list.id === action.payload.id ? state.activeList = list : null
             })
         },
-        toggleCompleted: (state, action) => {
-            /*             state.tasks.forEach(task => {
-                            if (task.id === action.payload.id) {
-                                task.completed = !task.completed
-                            }
-                        }) */
-        },
+        /*         toggleCompleted: (state, action) => {
+                    state.tasks.forEach(task => {
+                        if (task.id === action.payload.id) {
+                            task.completed = !task.completed
+                        }
+                    })
+                }, */
         setVisibleTaskForm: (state, action) => {
             state.visibleTaskForm = action.payload
         },
@@ -79,7 +80,7 @@ export const {
     setActiveList,
     toggleCompleted,
     setVisibleTaskForm,
-    updateActiveListTasks,
+    updateActiveList,
     setTaskValue } = taskSlice.actions
 
 export default taskSlice.reducer 
