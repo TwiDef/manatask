@@ -2,12 +2,12 @@
     position: relative;
 }
 
-.list {
-    .active {
-        padding: 8px;
-        background-color: #fff;
+.active {
+    padding: 8px;
+    background-color: #fff;
+}
 
-    }
+.list {
 
     .listItem {
         transition: .1s all ease-in-out;
@@ -23,11 +23,11 @@
 
 .add-folder-btn,
 .all-tasks-btn {
-    opacity: 0.6;
+    color: #656565;
     transition: .1s all ease-in-out;
 
     &:hover {
-        opacity: 1;
+        color: #1c1c1c;
     }
 }
 

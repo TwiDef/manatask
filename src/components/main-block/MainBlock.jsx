@@ -5,10 +5,11 @@ import { toggleCompleted, fetchTaskData, setVisibleTaskForm } from '../../redux/
 import TaskForm from '../task-form/TaskForm';
 
 import './MainBlock.scss';
+import TaskList from '../task-list/TaskList';
 
 const MainBlock = () => {
     const dispatch = useDispatch()
-    const { activeList, visibleTaskForm, tasks } = useSelector(state => state.task_data)
+    const { activeList, visibleTaskForm, lists } = useSelector(state => state.task_data)
 
     const toggleCheck = async (task) => {
         dispatch(toggleCompleted(task))
@@ -42,7 +43,7 @@ const MainBlock = () => {
 
                     <hr className='w-full h-1 bg-gray-300 mt-8' />
 
-                    <ul className='pt-8 pl-8 pr-3 h-80 overflow-y-auto'>
+                    <ul className='pt-8 pl-8 pr-3 min-h-80 overflow-y-auto'>
                         {activeList && activeList.tasks.map((task, i) => {
                             return (
                                 <li
@@ -92,11 +93,25 @@ const MainBlock = () => {
                     </ul>
 
                 </div> :
-                <div className='m-auto flex flex-col items-center justify-center gap-6'>
+                <div className='w-full px-6 pt-10 pb-5 overflow-y-auto'>
+                    {lists && lists.map(list => {
+                        return (
+                            <TaskList
+                                key={list.id}
+                                name={list.name}
+                                tasks={list.tasks}
+                            />
+                        )
+                    })}
+                    {/* <div className='m-auto flex flex-col items-center justify-center gap-6'>
                     <h2 className='text-3xl opacity-50'>Выберите список задач!</h2>
                     <img className=' opacity-80'
                         src="https://cdn-icons-png.flaticon.com/512/2015/2015653.png " width="256" height="256" alt="" title=""></img>
-                </div>}
+                </div> */}
+                </div>
+
+
+            }
         </>
     );
 };

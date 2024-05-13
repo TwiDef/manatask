@@ -26,9 +26,9 @@
       "colorId": "5"
     },
     {
-      "id": "0a25",
-      "name": "Asdsaasdasd",
-      "colorId": "3"
+      "id": "c6a1",
+      "name": "Jlkh",
+      "colorId": "6"
     }
   ],
   "tasks": [
@@ -73,6 +73,18 @@
       "completed": false,
       "listId": "2",
       "text": "rings of power"
+    },
+    {
+      "id": "faa7",
+      "completed": false,
+      "listId": "3",
+      "text": "hobbit"
+    },
+    {
+      "id": "d550",
+      "completed": false,
+      "listId": "3a6c",
+      "text": "another-task"
     }
   ],
   "colors": [

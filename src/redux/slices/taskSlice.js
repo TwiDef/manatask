@@ -33,8 +33,7 @@ export const taskSlice = createSlice({
     reducers: {
         updateActiveList: (state, action) => {
             state.activeList = state.lists[action.payload]
-        }
-        ,
+        },
         addToList: (state, action) => {
             state.lists.push(action.payload)
         },
@@ -42,6 +41,9 @@ export const taskSlice = createSlice({
             state.lists.filter(list => {
                 return list.id === action.payload.id ? state.activeList = list : null
             })
+        },
+        setActiveAllLists: (state) => {
+            state.activeList = null
         },
         /*         toggleCompleted: (state, action) => {
                     state.tasks.forEach(task => {
@@ -81,6 +83,7 @@ export const {
     toggleCompleted,
     setVisibleTaskForm,
     updateActiveList,
+    setActiveAllLists,
     setTaskValue } = taskSlice.actions
 
 export default taskSlice.reducer 
