@@ -2,22 +2,22 @@
   "lists": [
     {
       "id": "1",
-      "name": "Покупки-2",
+      "name": "Покупки-1",
       "colorId": "6"
     },
     {
       "id": "2",
-      "name": "Фильмы-2",
+      "name": "Фильмы-1",
       "colorId": "4"
     },
     {
       "id": "3",
-      "name": "Книги",
+      "name": "Книги-1",
       "colorId": "2"
     },
     {
       "id": "3a6c",
-      "name": "ANOTHER",
+      "name": "ANOTHER-1",
       "colorId": "7"
     },
     {
@@ -27,7 +27,7 @@
     },
     {
       "id": "c6a1",
-      "name": "Jlkh",
+      "name": "none",
       "colorId": "6"
     }
   ],

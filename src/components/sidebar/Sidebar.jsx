@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchTaskData, setActiveList, setTaskValue, setVisibleTaskForm, setActiveAllLists } from './../../redux/slices/taskSlice';
+import {
+    fetchTaskData,
+    setActiveList, setTaskValue,
+    setVisibleTaskForm,
+    setActiveAllLists
+} from './../../redux/slices/taskSlice';
 import Popup from '../popup/Popup';
 
 import './Sidebar.scss';

@@ -1,23 +1,24 @@
-import React, { useEffect, useReducer } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import { toggleCompleted, fetchTaskData, setVisibleTaskForm } from '../../redux/slices/taskSlice';
 import TaskForm from '../task-form/TaskForm';
+import TaskList from '../task-list/TaskList';
 
 import './MainBlock.scss';
-import TaskList from '../task-list/TaskList';
 
 const MainBlock = () => {
     const dispatch = useDispatch()
     const { activeList, visibleTaskForm, lists } = useSelector(state => state.task_data)
-
     const toggleCheck = async (task) => {
         dispatch(toggleCompleted(task))
     }
+    const [title, setTitle] = useState('')
 
     const onRenameList = async () => {
         const newListName = window.prompt('Введите имя списка', activeList.name)
         if (newListName) {
+            setTitle(newListName)
             await axios.patch(`http://localhost:3001/lists/${activeList.id}`, {
                 name: newListName
             }).catch(() => {
@@ -27,15 +28,19 @@ const MainBlock = () => {
         dispatch(fetchTaskData())
     }
 
+    useEffect(() => {
+        setTitle(activeList.name)
+    }, [activeList.name])
+
     return (
         <>
             {activeList ?
                 <div className='mainblock w-full px-6 pt-10 pb-4 flex flex-col'>
                     <div className='flex items-center gap-2 my-0 m-auto'>
                         <h1 className=' text-4xl text-stone-600 font-bold text-center'>
-                            {activeList && activeList.name}
+                            {title}
                         </h1>
-                        <button onClick={onRenameList}>
+                        <button onClick={() => onRenameList()}>
                             <img src="https://cdn-icons-png.flaticon.com/512/4341/4341104.png" alt=""
                                 width={34} height={34} />
                         </button>
@@ -95,22 +100,17 @@ const MainBlock = () => {
                 </div> :
                 <div className='w-full px-6 pt-10 pb-5 overflow-y-auto'>
                     {lists && lists.map(list => {
-                        return (
-                            <TaskList
-                                key={list.id}
-                                name={list.name}
-                                tasks={list.tasks}
-                            />
-                        )
+                        if (list.tasks.length) {
+                            return (
+                                <TaskList
+                                    key={list.id}
+                                    name={list.name}
+                                    tasks={list.tasks}
+                                />
+                            )
+                        }
                     })}
-                    {/* <div className='m-auto flex flex-col items-center justify-center gap-6'>
-                    <h2 className='text-3xl opacity-50'>Выберите список задач!</h2>
-                    <img className=' opacity-80'
-                        src="https://cdn-icons-png.flaticon.com/512/2015/2015653.png " width="256" height="256" alt="" title=""></img>
-                </div> */}
                 </div>
-
-
             }
         </>
     );
