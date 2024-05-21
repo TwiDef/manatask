@@ -1,12 +1,14 @@
 import React from 'react';
 
 import './TaskList.scss';
+import { useSelector } from 'react-redux';
 
-const TaskList = ({ name, tasks }) => {
+const TaskList = ({ name, tasks, colorId }) => {
+    const { colors } = useSelector(state => state.task_data)
 
     return (
         <div className='task-list'>
-            <h3 className='text-3xl text-zinc-600 font-bold pb-4'>{name}</h3>
+            <h3 className={`text-3xl font-bold pb-4 text-${colors[colorId - 1].color}-600`}>{name}</h3>
             <ul>
                 {tasks ? tasks.map(task => {
                     return (

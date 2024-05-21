@@ -45,6 +45,12 @@ export const taskSlice = createSlice({
         setActiveAllLists: (state) => {
             state.activeList = null
         },
+        deleteTask: (state, action) => {
+            state.activeList.tasks = state.activeList.tasks.filter(task => {
+                return task.id !== action.payload.id
+            })
+
+        },
         /*         toggleCompleted: (state, action) => {
                     state.tasks.forEach(task => {
                         if (task.id === action.payload.id) {
@@ -84,6 +90,7 @@ export const {
     setVisibleTaskForm,
     updateActiveList,
     setActiveAllLists,
+    deleteTask,
     setTaskValue } = taskSlice.actions
 
 export default taskSlice.reducer 

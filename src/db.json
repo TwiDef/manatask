@@ -2,7 +2,7 @@
   "lists": [
     {
       "id": "1",
-      "name": "Покупки-1",
+      "name": "Покупки",
       "colorId": "6"
     },
     {
@@ -26,9 +26,9 @@
       "colorId": "5"
     },
     {
-      "id": "c6a1",
-      "name": "none",
-      "colorId": "6"
+      "id": "7c98",
+      "name": "Example",
+      "colorId": "3"
     }
   ],
   "tasks": [
@@ -37,12 +37,6 @@
       "completed": true,
       "listId": "1",
       "text": "Lorem ipsum dolor sit amet"
-    },
-    {
-      "id": "2",
-      "completed": false,
-      "listId": "1",
-      "text": "iste magnam minima reprehenderit ea!"
     },
     {
       "id": "3",
@@ -81,10 +75,40 @@
       "text": "hobbit"
     },
     {
-      "id": "d550",
+      "id": "1bca",
+      "completed": false,
+      "listId": null,
+      "text": "new task"
+    },
+    {
+      "id": "e12f",
+      "completed": false,
+      "listId": null,
+      "text": "1"
+    },
+    {
+      "id": "c755",
       "completed": false,
       "listId": "3a6c",
-      "text": "another-task"
+      "text": "task"
+    },
+    {
+      "id": "a68e",
+      "completed": false,
+      "listId": "3a6c",
+      "text": "another task"
+    },
+    {
+      "id": "eed6",
+      "completed": false,
+      "listId": "7c98",
+      "text": "asdasvdsa"
+    },
+    {
+      "id": "662f",
+      "completed": false,
+      "listId": "7c98",
+      "text": "fasdfdasfasd"
     }
   ],
   "colors": [
@@ -102,7 +126,7 @@
     },
     {
       "id": "4",
-      "color": "emerland"
+      "color": "emerald"
     },
     {
       "id": "5",
