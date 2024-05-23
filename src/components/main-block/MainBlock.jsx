@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
-import { toggleCompleted, fetchTaskData, setVisibleTaskForm, deleteTask, setActiveList } from '../../redux/slices/taskSlice';
+import { updateTaskStatus, fetchTaskData, setVisibleTaskForm, deleteTask } from '../../redux/slices/taskSlice';
 import TaskForm from '../task-form/TaskForm';
 import TaskList from '../task-list/TaskList';
+import Task from '../task/Task';
 
 import './MainBlock.scss';
-import Task from '../task/Task';
+
 
 const MainBlock = () => {
     const dispatch = useDispatch()
@@ -26,7 +27,7 @@ const MainBlock = () => {
         dispatch(fetchTaskData())
     }
 
-    const removeTask = async (task) => {
+    const onRemoveTask = async (task) => {
         if (window.confirm('Вы действительно хотите удалить задачу?')) {
             dispatch(deleteTask(task))
             await axios.delete(`http://localhost:3001/tasks/${task.id}`)
@@ -34,8 +35,15 @@ const MainBlock = () => {
                     alert('Не удалось удалить задачу')
                 })
         }
-        await dispatch(fetchTaskData())
-        /* dispatch(setActiveList(activeList.id)) */
+        dispatch(fetchTaskData())
+    }
+
+    const onToggleCheckTask = async (task, e) => {
+        dispatch(updateTaskStatus(task.id))
+        await axios.patch(`http://localhost:3001/tasks/${task.id}`, {
+            completed: e
+        })
+        dispatch(fetchTaskData())
     }
 
     useEffect(() => {
@@ -61,7 +69,11 @@ const MainBlock = () => {
                     <ul className='pt-8 pl-8 pr-3 min-h-80 overflow-y-auto'>
                         {activeList && activeList.tasks.map((task, i) => {
                             return (
-                                <Task remove={removeTask} key={i} task={task} />
+                                <Task
+                                    onRemove={onRemoveTask}
+                                    onToggleCheck={onToggleCheckTask}
+                                    key={i}
+                                    task={task} />
                             )
                         })}
 
@@ -83,7 +95,8 @@ const MainBlock = () => {
                         if (list.tasks.length) {
                             return (
                                 <TaskList
-                                    remove={removeTask}
+                                    onRemove={onRemoveTask}
+                                    onToggleCheck={onToggleCheckTask}
                                     key={list.id}
                                     name={list.name}
                                     colorId={list.colorId}

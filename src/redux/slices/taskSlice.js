@@ -45,6 +45,20 @@ export const taskSlice = createSlice({
         setActiveAllLists: (state) => {
             state.activeList = null
         },
+        updateTaskStatus: (state, action) => {
+            state.tasks.filter(task => {
+                if (task.id === action.payload) {
+                    task.completed = !task.completed
+                }
+            })
+            if (state.activeList) {
+                state.activeList.tasks.filter(task => {
+                    if (task.id === action.payload) {
+                        task.completed = !task.completed
+                    }
+                })
+            }
+        },
         deleteTask: (state, action) => {
             state.tasks = state.tasks.filter(task => {
                 return task.id !== action.payload.id
@@ -55,13 +69,6 @@ export const taskSlice = createSlice({
                 })
             }
         },
-        /*         toggleCompleted: (state, action) => {
-                    state.tasks.forEach(task => {
-                        if (task.id === action.payload.id) {
-                            task.completed = !task.completed
-                        }
-                    })
-                }, */
         setVisibleTaskForm: (state, action) => {
             state.visibleTaskForm = action.payload
         },
@@ -78,7 +85,6 @@ export const taskSlice = createSlice({
                 state.lists = action.payload.lists
                 state.tasks = action.payload.tasks
                 state.colors = action.payload.colors
-                /* state.activeList = action.payload.lists[0] */
                 state.status = 'succeeded'
             })
             .addCase(fetchTaskData.rejected, (state) => {
@@ -95,6 +101,7 @@ export const {
     updateActiveList,
     setActiveAllLists,
     deleteTask,
+    updateTaskStatus,
     setTaskValue } = taskSlice.actions
 
 export default taskSlice.reducer 

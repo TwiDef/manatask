@@ -21,11 +21,6 @@
       "colorId": "7"
     },
     {
-      "id": "d75e",
-      "name": "Folder",
-      "colorId": "5"
-    },
-    {
       "id": "7c98",
       "name": "Example1",
       "colorId": "3"
@@ -36,11 +31,13 @@
       "id": "1",
       "completed": true,
       "listId": "1",
-      "text": "Lorem ipsum dolor sit amet"
+      "text": "Lorem ipsum dolor sit amet",
+      "status": true,
+      "a": 4
     },
     {
       "id": "3",
-      "completed": false,
+      "completed": true,
       "listId": "1",
       "text": "commodi veniam officiis accusamus voluptatibus."
     },
@@ -58,7 +55,7 @@
     },
     {
       "id": "c2bb",
-      "completed": false,
+      "completed": true,
       "listId": "2",
       "text": "the hobbit"
     },
@@ -99,16 +96,10 @@
       "text": "another task"
     },
     {
-      "id": "eed6",
+      "id": "59d0",
       "completed": false,
-      "listId": "7c98",
-      "text": "asdasvdsa"
-    },
-    {
-      "id": "079b",
-      "completed": false,
-      "listId": "d75e",
-      "text": "2342"
+      "listId": null,
+      "text": "asdas"
     }
   ],
   "colors": [
