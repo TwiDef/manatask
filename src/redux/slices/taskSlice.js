@@ -46,10 +46,14 @@ export const taskSlice = createSlice({
             state.activeList = null
         },
         deleteTask: (state, action) => {
-            state.activeList.tasks = state.activeList.tasks.filter(task => {
+            state.tasks = state.tasks.filter(task => {
                 return task.id !== action.payload.id
             })
-
+            if (state.activeList) {
+                state.activeList.tasks = state.activeList.tasks.filter(task => {
+                    return task.id !== action.payload.id
+                })
+            }
         },
         /*         toggleCompleted: (state, action) => {
                     state.tasks.forEach(task => {

@@ -35,7 +35,7 @@ const MainBlock = () => {
                 })
         }
         await dispatch(fetchTaskData())
-        dispatch(setActiveList(activeList.id))
+        /* dispatch(setActiveList(activeList.id)) */
     }
 
     useEffect(() => {
@@ -83,6 +83,7 @@ const MainBlock = () => {
                         if (list.tasks.length) {
                             return (
                                 <TaskList
+                                    remove={removeTask}
                                     key={list.id}
                                     name={list.name}
                                     colorId={list.colorId}
