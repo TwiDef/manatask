@@ -95,6 +95,7 @@ const MainBlock = () => {
                         if (list.tasks.length) {
                             return (
                                 <TaskList
+                                    list={list}
                                     onRemove={onRemoveTask}
                                     onToggleCheck={onToggleCheckTask}
                                     key={list.id}

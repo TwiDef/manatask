@@ -37,7 +37,7 @@
     },
     {
       "id": "3",
-      "completed": true,
+      "completed": false,
       "listId": "1",
       "text": "commodi veniam officiis accusamus voluptatibus."
     },
@@ -55,7 +55,7 @@
     },
     {
       "id": "c2bb",
-      "completed": true,
+      "completed": false,
       "listId": "2",
       "text": "the hobbit"
     },
@@ -67,7 +67,7 @@
     },
     {
       "id": "faa7",
-      "completed": false,
+      "completed": true,
       "listId": "3",
       "text": "hobbit"
     },

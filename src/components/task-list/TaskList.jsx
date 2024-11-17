@@ -1,14 +1,19 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { setActiveList } from '../../redux/slices/taskSlice';
 
 import './TaskList.scss';
 
-const TaskList = ({ name, tasks, colorId, onRemove, onToggleCheck }) => {
+const TaskList = ({ list, name, tasks, colorId, onRemove, onToggleCheck }) => {
+
     const { colors } = useSelector(state => state.task_data)
+    const dispatch = useDispatch()
 
     return (
         <div className='task-list'>
-            <h3 className={`text-3xl font-bold pb-4 text-${colors[colorId - 1].color}-600`}>{name}</h3>
+            <h3
+                onClick={() => dispatch(setActiveList(list))}
+                className={`cursor-pointer text-3xl font-bold pb-4 text-${colors[colorId - 1].color}-600`}>{name}</h3>
             <ul>
                 {tasks && tasks.map(task => {
                     return (
