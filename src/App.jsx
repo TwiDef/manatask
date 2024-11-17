@@ -10,7 +10,7 @@ import './App.scss';
 function App() {
     const dispatch = useDispatch()
 
-    console.log(process.env.SECRET_KEY)
+    console.log(process.env.REACT_APP_SECRET_KEY)
 
     useEffect(() => {
         dispatch(fetchTaskData())
